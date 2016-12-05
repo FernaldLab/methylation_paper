@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Session genome="/Volumes/FISHSTUDIES/_Burtoni_genome_files/H_burtoni_v1.assembly.fa" hasGeneTrack="false" hasSequenceTrack="true" locus="scaffold_1314:1-58506" path="/Users/abseq/Documents/_BS-seq_analysis/igv_session_Sep_BSseq_alignmentsAndMethRatios_noPileups_newAnnos_dmr_tf_zcne_tracks_expression.xml" version="8">
+    <Resources>
+        <Resource path="dmrs_604_hc.ok_ok_s_ok_d_null.1.bed"/>
+        <Resource path="../_annotationsDec2015/hBurtoni_zCNE_alignments.out.bed"/>
+        <Resource path="tpm_3157_TENNISON.bedGraph"/>
+        <Resource path="tpm_3165_BRISCOE.bedGraph"/>
+        <Resource path="dmrs0_1872_DMRs25_50_70.bed"/>
+        <Resource path="dmrs_1034_hc.ok_ok_s_ok_d.bed"/>
+        <Resource path="../../../../Volumes/FISHSTUDIES/_methylation/_alignments/3165_BRISCOE/aligned.adapters.q30.m0.methratio.clean.wig.tdf"/>
+        <Resource path="JASPAR_all_ids_dmrHits.bed"/>
+        <Resource path="JASPAR_hormone_receptor_IDs_wholeGenomeHits_dataFrame_dmrHits_rev.bed"/>
+        <Resource path="../../../../Volumes/FISHSTUDIES/_Burtoni_annotations/ref_AstBur1.0_scaffolds.clean.translate.final.combo.sorted.gff3"/>
+        <Resource path="dmrs_709_hc.ok_ok_s_ok_d_null.5.bed"/>
+        <Resource path="../../../../Volumes/FISHSTUDIES/_methylation/_alignments/3581_LYNLEY/aligned.adapters.q30.m0.methratio.clean.wig.tdf"/>
+        <Resource path="tpm_3581_LYNLEY.bedGraph"/>
+        <Resource path="../../../../Volumes/FISHSTUDIES/_methylation/_alignments/3157_TENNISON/aligned.adapters.q30.m0.methratio.clean.wig.tdf"/>
+        <Resource path="JASPAR_hormone_receptor_IDs_wholeGenomeHits_dataFrame_dmrHits_fwd.bed"/>
+        <Resource path="../../../../Volumes/FISHSTUDIES/_methylation/_alignments/3677_MONK/aligned.adapters.q30.m0.methratio.clean.wig.tdf"/>
+        <Resource path="dmrs_769_hc.ok_ok_s_ok_d_null.9.bed"/>
+        <Resource path="dmrs_673_hc.ok_ok_s_ok_d_null.33.bed"/>
+        <Resource path="../../../../Volumes/fishstudies-1/_Burtoni_annotations/Assembly_SNPs.noHeader.gff3.bed"/>
+        <Resource path="ref_AstBur1.0_scaffolds_translated.gff3"/>
+        <Resource path="allnullints.bed"/>
+        <Resource path="tpm_3677_MONK.bedGraph"/>
+    </Resources>
+    <Panel height="830" name="DataPanel" width="1884">
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" displayMode="COLLAPSED" featureVisibilityWindow="1998814" fontSize="10" id="/Volumes/FISHSTUDIES/_Burtoni_annotations/ref_AstBur1.0_scaffolds.clean.translate.final.combo.sorted.gff3" name="ref_AstBur1.0_scaffolds.clean.translate.final.combo.sorted.gff3" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count"/>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;4742.0;255,255,255;0,0,178" displayMode="EXPANDED" featureVisibilityWindow="-1" fontSize="10" id="/Users/abseq/Documents/_BS-seq_analysis/ref_AstBur1.0_scaffolds_translated.gff3" name="ref_AstBur1.0_scaffolds_translated.gff3" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="4742.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" displayMode="EXPANDED" featureVisibilityWindow="-1" fontSize="10" height="20" id="/Users/abseq/Documents/_BS-seq_analysis/dmrs_604_hc.ok_ok_s_ok_d_null.1.bed" name="dmrs_604_hc.ok_ok_s_ok_d_null.1.bed" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count"/>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" displayMode="EXPANDED" featureVisibilityWindow="-1" fontSize="10" height="20" id="/Users/abseq/Documents/_BS-seq_analysis/dmrs_673_hc.ok_ok_s_ok_d_null.33.bed" name="dmrs_673_hc.ok_ok_s_ok_d_null.33.bed" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count"/>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" displayMode="EXPANDED" featureVisibilityWindow="-1" fontSize="10" height="20" id="/Users/abseq/Documents/_BS-seq_analysis/dmrs_709_hc.ok_ok_s_ok_d_null.5.bed" name="dmrs_709_hc.ok_ok_s_ok_d_null.5.bed" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count"/>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" displayMode="EXPANDED" featureVisibilityWindow="-1" fontSize="10" height="20" id="/Users/abseq/Documents/_BS-seq_analysis/dmrs_769_hc.ok_ok_s_ok_d_null.9.bed" name="dmrs_769_hc.ok_ok_s_ok_d_null.9.bed" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count"/>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" displayMode="EXPANDED" featureVisibilityWindow="-1" fontSize="10" height="20" id="/Users/abseq/Documents/_BS-seq_analysis/dmrs_1034_hc.ok_ok_s_ok_d.bed" name="dmrs_1034_hc.ok_ok_s_ok_d.bed" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count"/>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" displayMode="EXPANDED" featureVisibilityWindow="-1" fontSize="10" height="20" id="/Users/abseq/Documents/_BS-seq_analysis/dmrs0_1872_DMRs25_50_70.bed" name="dmrs0_1872_DMRs25_50_70.bed" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count"/>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;182.0;255,255,255;0,0,178" displayMode="COLLAPSED" featureVisibilityWindow="-1" fontSize="10" height="20" id="/Users/abseq/Documents/_BS-seq_analysis/allnullints.bed" name="allnullints.bed" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="182.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" displayMode="COLLAPSED" featureVisibilityWindow="-1" fontSize="10" id="/Users/abseq/Documents/_BS-seq_analysis/JASPAR_all_ids_dmrHits.bed" name="JASPAR_all_ids_dmrHits.bed" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count"/>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" displayMode="COLLAPSED" featureVisibilityWindow="-1" fontSize="10" id="/Users/abseq/Documents/_BS-seq_analysis/JASPAR_hormone_receptor_IDs_wholeGenomeHits_dataFrame_dmrHits_fwd.bed" name="JASPAR_hormone_receptor_IDs_wholeGenomeHits_dataFrame_dmrHits_fwd.bed" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count"/>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" displayMode="COLLAPSED" featureVisibilityWindow="-1" fontSize="10" id="/Users/abseq/Documents/_BS-seq_analysis/JASPAR_hormone_receptor_IDs_wholeGenomeHits_dataFrame_dmrHits_rev.bed" name="JASPAR_hormone_receptor_IDs_wholeGenomeHits_dataFrame_dmrHits_rev.bed" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count"/>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" colorScale="ContinuousColorScale;0.0;340.0;255,255,255;0,0,178" displayMode="COLLAPSED" featureVisibilityWindow="-1" fontSize="10" id="/Users/abseq/Documents/_annotationsDec2015/hBurtoni_zCNE_alignments.out.bed" name="hBurtoni_zCNE_alignments.out.bed" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="340.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" displayMode="COLLAPSED" featureVisibilityWindow="3656870" fontSize="10" id="/Volumes/fishstudies-1/_Burtoni_annotations/Assembly_SNPs.noHeader.gff3.bed" name="Assembly_SNPs.noHeader.gff3.bed" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count"/>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" color="0,0,178" colorScale="ContinuousColorScale;0.7;0.0;26.0;150.0;255,255,255;255,255,255;0,0,178" displayMode="COLLAPSED" featureVisibilityWindow="-1" fontSize="10" height="20" id="/Users/abseq/Documents/_BS-seq_analysis/tpm_3157_TENNISON.bedGraph" name="tpm_3157_TENNISON.bedGraph" normalize="false" renderer="HEATMAP" sortable="true" visible="true" windowFunction="mean">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="16491.676" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" color="0,0,178" colorScale="ContinuousColorScale;0.7;0.0;26.0;150.0;255,255,255;255,255,255;0,0,178" displayMode="COLLAPSED" featureVisibilityWindow="-1" fontSize="10" height="20" id="/Users/abseq/Documents/_BS-seq_analysis/tpm_3677_MONK.bedGraph" name="tpm_3677_MONK.bedGraph" normalize="false" renderer="HEATMAP" sortable="true" visible="true" windowFunction="mean">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="16491.676" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" color="0,0,178" colorScale="ContinuousColorScale;0.7;0.0;26.0;150.0;255,255,255;255,255,255;0,0,178" displayMode="COLLAPSED" featureVisibilityWindow="-1" fontSize="10" height="20" id="/Users/abseq/Documents/_BS-seq_analysis/tpm_3165_BRISCOE.bedGraph" name="tpm_3165_BRISCOE.bedGraph" normalize="false" renderer="HEATMAP" sortable="true" visible="true" windowFunction="mean">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="16491.676" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" color="0,0,178" colorScale="ContinuousColorScale;0.7;0.0;26.0;150.0;255,255,255;255,255,255;0,0,178" displayMode="COLLAPSED" featureVisibilityWindow="-1" fontSize="10" height="20" id="/Users/abseq/Documents/_BS-seq_analysis/tpm_3581_LYNLEY.bedGraph" name="tpm_3581_LYNLEY.bedGraph" normalize="false" renderer="HEATMAP" sortable="true" visible="true" windowFunction="mean">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="16491.676" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" color="0,0,178" displayMode="COLLAPSED" featureVisibilityWindow="-1" fontSize="10" id="/Volumes/FISHSTUDIES/_methylation/_alignments/3157_TENNISON/aligned.adapters.q30.m0.methratio.clean.wig.tdf" name="3157-ND1" normalize="false" renderer="BAR_CHART" sortable="true" visible="true" windowFunction="mean">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="1.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" color="0,0,178" displayMode="COLLAPSED" featureVisibilityWindow="-1" fontSize="10" id="/Volumes/FISHSTUDIES/_methylation/_alignments/3677_MONK/aligned.adapters.q30.m0.methratio.clean.wig.tdf" name="3677-ND2" normalize="false" renderer="BAR_CHART" sortable="true" visible="true" windowFunction="mean">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="1.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" color="0,0,178" displayMode="COLLAPSED" featureVisibilityWindow="-1" fontSize="10" id="/Volumes/FISHSTUDIES/_methylation/_alignments/3165_BRISCOE/aligned.adapters.q30.m0.methratio.clean.wig.tdf" name="3165-D1" normalize="false" renderer="BAR_CHART" sortable="true" visible="true" windowFunction="mean">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="1.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.DataSourceTrack" color="0,0,178" displayMode="COLLAPSED" featureVisibilityWindow="-1" fontSize="10" id="/Volumes/FISHSTUDIES/_methylation/_alignments/3581_LYNLEY/aligned.adapters.q30.m0.methratio.clean.wig.tdf" name="3581-D2" normalize="false" renderer="BAR_CHART" sortable="true" visible="true" windowFunction="mean">
+            <DataRange baseline="0.0" drawBaseline="true" flipAxis="false" maximum="1.0" minimum="0.0" type="LINEAR"/>
+        </Track>
+    </Panel>
+    <Panel height="880" name="FeaturePanel" width="1884">
+        <Track altColor="0,0,178" autoScale="false" color="0,0,178" displayMode="COLLAPSED" featureVisibilityWindow="-1" fontSize="10" id="Reference sequence" name="Reference sequence" sortable="false" visible="true"/>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" displayMode="SQUISHED" featureVisibilityWindow="10000000" fontSize="10" id="AAGAACACGCTGCTC" name="AAGAACACGCTGCTC" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count">
+            <SequenceMatchSource featureWindowSize="10000000" genome="/Volumes/FISHSTUDIES/_Burtoni_genome_files/H_burtoni_v1.assembly.fa" pattern="AAGAACACGCTGCTC" strand="POSITIVE"/>
+        </Track>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="255,0,0" displayMode="SQUISHED" featureVisibilityWindow="10000000" fontSize="10" id="AAGAACACGCTGCTC Negative" name="AAGAACACGCTGCTC Negative" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count">
+            <SequenceMatchSource featureWindowSize="10000000" genome="/Volumes/FISHSTUDIES/_Burtoni_genome_files/H_burtoni_v1.assembly.fa" pattern="AAGAACACGCTGCTC" strand="NEGATIVE"/>
+        </Track>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" displayMode="SQUISHED" featureVisibilityWindow="10000000" fontSize="10" id="CAGAACATTGTGTTT" name="CAGAACATTGTGTTT" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count">
+            <SequenceMatchSource featureWindowSize="10000000" genome="/Volumes/FISHSTUDIES/_Burtoni_genome_files/H_burtoni_v1.assembly.fa" pattern="CAGAACATTGTGTTT" strand="POSITIVE"/>
+        </Track>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="255,0,0" displayMode="SQUISHED" featureVisibilityWindow="10000000" fontSize="10" id="CAGAACATTGTGTTT Negative" name="CAGAACATTGTGTTT Negative" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count">
+            <SequenceMatchSource featureWindowSize="10000000" genome="/Volumes/FISHSTUDIES/_Burtoni_genome_files/H_burtoni_v1.assembly.fa" pattern="CAGAACATTGTGTTT" strand="NEGATIVE"/>
+        </Track>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" displayMode="SQUISHED" featureVisibilityWindow="10000000" fontSize="10" id="CGTCGCTCGGCCTG" name="CGTCGCTCGGCCTG" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count">
+            <SequenceMatchSource featureWindowSize="10000000" genome="/Volumes/FISHSTUDIES/_Burtoni_genome_files/H_burtoni_v1.assembly.fa" pattern="CGTCGCTCGGCCTG" strand="POSITIVE"/>
+        </Track>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="255,0,0" displayMode="SQUISHED" featureVisibilityWindow="10000000" fontSize="10" id="CGTCGCTCGGCCTG Negative" name="CGTCGCTCGGCCTG Negative" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count">
+            <SequenceMatchSource featureWindowSize="10000000" genome="/Volumes/FISHSTUDIES/_Burtoni_genome_files/H_burtoni_v1.assembly.fa" pattern="CGTCGCTCGGCCTG" strand="NEGATIVE"/>
+        </Track>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" displayMode="SQUISHED" featureVisibilityWindow="10000000" fontSize="10" id="GGGTCACCCAGCTCG" name="GGGTCACCCAGCTCG" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count">
+            <SequenceMatchSource featureWindowSize="10000000" genome="/Volumes/FISHSTUDIES/_Burtoni_genome_files/H_burtoni_v1.assembly.fa" pattern="GGGTCACCCAGCTCG" strand="POSITIVE"/>
+        </Track>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="255,0,0" displayMode="SQUISHED" featureVisibilityWindow="10000000" fontSize="10" id="GGGTCACCCAGCTCG Negative" name="GGGTCACCCAGCTCG Negative" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count">
+            <SequenceMatchSource featureWindowSize="10000000" genome="/Volumes/FISHSTUDIES/_Burtoni_genome_files/H_burtoni_v1.assembly.fa" pattern="GGGTCACCCAGCTCG" strand="NEGATIVE"/>
+        </Track>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" displayMode="SQUISHED" featureVisibilityWindow="10000000" fontSize="10" id="AGGTCACGATAGTCG" name="AGGTCACGATAGTCG" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count">
+            <SequenceMatchSource featureWindowSize="10000000" genome="/Volumes/FISHSTUDIES/_Burtoni_genome_files/H_burtoni_v1.assembly.fa" pattern="AGGTCACGATAGTCG" strand="POSITIVE"/>
+        </Track>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="255,0,0" displayMode="SQUISHED" featureVisibilityWindow="10000000" fontSize="10" id="AGGTCACGATAGTCG Negative" name="AGGTCACGATAGTCG Negative" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count">
+            <SequenceMatchSource featureWindowSize="10000000" genome="/Volumes/FISHSTUDIES/_Burtoni_genome_files/H_burtoni_v1.assembly.fa" pattern="AGGTCACGATAGTCG" strand="NEGATIVE"/>
+        </Track>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" displayMode="SQUISHED" featureVisibilityWindow="10000000" fontSize="10" id="CGTCCGCCGCCGTC" name="CGTCCGCCGCCGTC" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count">
+            <SequenceMatchSource featureWindowSize="10000000" genome="/Volumes/FISHSTUDIES/_Burtoni_genome_files/H_burtoni_v1.assembly.fa" pattern="CGTCCGCCGCCGTC" strand="POSITIVE"/>
+        </Track>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="255,0,0" displayMode="SQUISHED" featureVisibilityWindow="10000000" fontSize="10" id="CGTCCGCCGCCGTC Negative" name="CGTCCGCCGCCGTC Negative" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count">
+            <SequenceMatchSource featureWindowSize="10000000" genome="/Volumes/FISHSTUDIES/_Burtoni_genome_files/H_burtoni_v1.assembly.fa" pattern="CGTCCGCCGCCGTC" strand="NEGATIVE"/>
+        </Track>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" displayMode="SQUISHED" featureVisibilityWindow="10000000" fontSize="10" id="GTACCACCCTCCCCC" name="GTACCACCCTCCCCC" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count">
+            <SequenceMatchSource featureWindowSize="10000000" genome="/Volumes/FISHSTUDIES/_Burtoni_genome_files/H_burtoni_v1.assembly.fa" pattern="GTACCACCCTCCCCC" strand="POSITIVE"/>
+        </Track>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="255,0,0" displayMode="SQUISHED" featureVisibilityWindow="10000000" fontSize="10" id="GTACCACCCTCCCCC Negative" name="GTACCACCCTCCCCC Negative" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count">
+            <SequenceMatchSource featureWindowSize="10000000" genome="/Volumes/FISHSTUDIES/_Burtoni_genome_files/H_burtoni_v1.assembly.fa" pattern="GTACCACCCTCCCCC" strand="NEGATIVE"/>
+        </Track>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" displayMode="SQUISHED" featureVisibilityWindow="10000000" fontSize="10" id="GGAGAGAAGAAGAGA" name="GGAGAGAAGAAGAGA" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count">
+            <SequenceMatchSource featureWindowSize="10000000" genome="/Volumes/FISHSTUDIES/_Burtoni_genome_files/H_burtoni_v1.assembly.fa" pattern="GGAGAGAAGAAGAGA" strand="POSITIVE"/>
+        </Track>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="255,0,0" displayMode="SQUISHED" featureVisibilityWindow="10000000" fontSize="10" id="GGAGAGAAGAAGAGA Negative" name="GGAGAGAAGAAGAGA Negative" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count">
+            <SequenceMatchSource featureWindowSize="10000000" genome="/Volumes/FISHSTUDIES/_Burtoni_genome_files/H_burtoni_v1.assembly.fa" pattern="GGAGAGAAGAAGAGA" strand="NEGATIVE"/>
+        </Track>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" displayMode="SQUISHED" featureVisibilityWindow="10000000" fontSize="10" id="TAATTAACTAGTG" name="TAATTAACTAGTG" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count">
+            <SequenceMatchSource featureWindowSize="10000000" genome="/Volumes/FISHSTUDIES/_Burtoni_genome_files/H_burtoni_v1.assembly.fa" pattern="TAATTAACTAGTG" strand="POSITIVE"/>
+        </Track>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="255,0,0" displayMode="SQUISHED" featureVisibilityWindow="10000000" fontSize="10" id="TAATTAACTAGTG Negative" name="TAATTAACTAGTG Negative" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count">
+            <SequenceMatchSource featureWindowSize="10000000" genome="/Volumes/FISHSTUDIES/_Burtoni_genome_files/H_burtoni_v1.assembly.fa" pattern="TAATTAACTAGTG" strand="NEGATIVE"/>
+        </Track>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" displayMode="SQUISHED" featureVisibilityWindow="10000000" fontSize="10" id="AAGAACAGAAGGAGA" name="AAGAACAGAAGGAGA" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count">
+            <SequenceMatchSource featureWindowSize="10000000" genome="/Volumes/FISHSTUDIES/_Burtoni_genome_files/H_burtoni_v1.assembly.fa" pattern="AAGAACAGAAGGAGA" strand="POSITIVE"/>
+        </Track>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="255,0,0" displayMode="SQUISHED" featureVisibilityWindow="10000000" fontSize="10" id="AAGAACAGAAGGAGA Negative" name="AAGAACAGAAGGAGA Negative" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count">
+            <SequenceMatchSource featureWindowSize="10000000" genome="/Volumes/FISHSTUDIES/_Burtoni_genome_files/H_burtoni_v1.assembly.fa" pattern="AAGAACAGAAGGAGA" strand="NEGATIVE"/>
+        </Track>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="0,0,178" displayMode="SQUISHED" featureVisibilityWindow="10000000" fontSize="10" id="AAGAATATTATGTACTGT" name="AAGAATATTATGTACTGT" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count">
+            <SequenceMatchSource featureWindowSize="10000000" genome="/Volumes/FISHSTUDIES/_Burtoni_genome_files/H_burtoni_v1.assembly.fa" pattern="AAGAATATTATGTACTGT" strand="POSITIVE"/>
+        </Track>
+        <Track altColor="0,0,178" autoScale="false" clazz="org.broad.igv.track.FeatureTrack" color="255,0,0" displayMode="SQUISHED" featureVisibilityWindow="10000000" fontSize="10" id="AAGAATATTATGTACTGT Negative" name="AAGAATATTATGTACTGT Negative" renderer="BASIC_FEATURE" sortable="false" visible="true" windowFunction="count">
+            <SequenceMatchSource featureWindowSize="10000000" genome="/Volumes/FISHSTUDIES/_Burtoni_genome_files/H_burtoni_v1.assembly.fa" pattern="AAGAATATTATGTACTGT" strand="NEGATIVE"/>
+        </Track>
+    </Panel>
+    <PanelLayout dividerFractions="0.9121287128712872"/>
+    <HiddenAttributes>
+        <Attribute name="DATA FILE"/>
+        <Attribute name="DATA TYPE"/>
+        <Attribute name="NAME"/>
+    </HiddenAttributes>
+</Session>
