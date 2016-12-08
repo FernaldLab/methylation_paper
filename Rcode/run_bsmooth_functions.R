@@ -3359,7 +3359,26 @@
 
 
 
-
+.draw_pairwise_venn_from_groups = function (gp1, gp2, groupNames=NULL, ...) {
+  gp1_2 = intersect(gp1, gp2);
+  if (is.null(groupNames)) {
+    groupNames = c(paste0(deparse(substitute(gp1)),':',length(gp1)), 
+                   paste0(deparse(substitute(gp2)),':',length(gp2)));
+  } else {
+    for (g in 1:2) {
+      groupNames[g] = paste0(groupNames[g],':',length(get(paste0('gp',g))));
+    }
+  }
+  draw.pairwise.venn(length(gp1), length(gp2), length(gp1_2), 
+                     category=groupNames,
+                     fontfamily=rep('Helvetica',3),
+                     cat.fontfamily=rep('Helvetica',2),
+                     ...);
+  uniques = list(setdiff(gp1, gp2), setdiff(gp2, gp1));
+  groupNames = sapply(strsplit(groupNames,':'), function(f) f[1]);
+  names(uniques) = groupNames;
+  return(list(overlaps=gp1_2, uniques=uniques, groupNames=groupNames));
+}
 
 .draw_quad_venn_from_groups = function (gp1, gp2, gp3, gp4, groupNames=NULL, ...) {
   gp1_2 = intersect(gp1, gp2);
@@ -3464,7 +3483,22 @@
 
 
 
-
+.screen_enrichGOAllOntologies = function (idlist, bgvec, OrgDb=org.Hs.eg.db, fdrmethvec=c('BY','BH'), fdrthvec=c(.01, .05)) {
+  golist = list();
+  for (fdrmeth in fdrmethvec) {
+    cat(paste0('------------------------- ', fdrmeth,  ' -------------------------'));
+    for (fdrth in fdrthvec) {
+      cat(paste0('------------------------- ', fdrth,  ' -------------------------'));
+      for (i in 1:length(idlist)) {
+        cat(paste0('------------------------- ', names(idlist)[i],  ' -------------------------'));
+        thisres = .enrichGOAllOntologies(idlist[[i]], OrgDb=OrgDb, refGenes=bgvec, pAdjustMethod=fdrmeth, pvalueCutoff=fdrth);
+        thisname = paste0(fdrmeth,'.', gsub('0.','',fdrth,fixed=T));
+        golist[[names(idlist)[i]]][[thisname]] = thisres;
+      }
+    }
+  }
+  return(golist);
+}
 
 
 
@@ -3845,4 +3879,47 @@
     df[g, ] = as.numeric(names(df) %in% bygene[[g]]);
   }
   return(df)
+}
+
+.getDmrsAndAbGenesForTermEntrezGenes = function (GOFunctionAllOntologiesOutput, inputGenesToGOFunction, dmrsOVgene,
+                                                 geneCol=8, geneSep=',', termCol=3) {
+  go = GOFunctionAllOntologiesOutput;
+  inputgenes = inputGenesToGOFunction;
+  go.parsed = .parseGOhitGenes(thisGO, geneCol, geneSep, termCol, inputgenes);  
+  abgenesByTerm = lapply(go.parsed$byTerm, 
+                         function(f) sapply(strsplit(names(f),'__'), 
+                                            function(ff) ff[1]));
+  dmrsOVgeneByTerm = lapply(abgenesByTerm, 
+                            function(f) dmrsOVgene[match(f, dmrsOVgene$mcols.geneSym), ]);
+  for (tt in 1:length(dmrsOVgeneByTerm)) {
+    dmrsOVgeneByTerm[[tt]] = as.data.frame(cbind(dmrsOVgeneByTerm[[tt]],
+                                                 entrez=go.parsed$byTerm[[tt]]));
+  }
+  return(dmrsOVgeneByTerm);
+}
+
+
+
+
+.screen_enrichGOAllOntologies = function (idlist, bgvec, OrgDb=org.Hs.eg.db, fdrmethvec=c('BY','BH'), fdrthvec=c(.01, .05)) {
+  golist = list();
+  for (fdrmeth in fdrmethvec) {
+    cat(paste0('------------------------- ', fdrmeth,  ' -------------------------'));
+    for (fdrth in fdrthvec) {
+      cat(paste0('------------------------- ', fdrth,  ' -------------------------'));
+      for (i in 1:length(idlist)) {
+        cat(paste0('------------------------- ', names(idlist)[i],  ' -------------------------'));
+        thisres = .enrichGOAllOntologies(idlist[[i]], OrgDb=OrgDb, refGenes=bgvec, pAdjustMethod=fdrmeth, pvalueCutoff=fdrth);
+        #thisres = .GOFunctionAllOntologies(idlist[[i]], bgvec, fdrmethod=fdrmeth, fdrth=fdrth);
+        thisname = paste0(fdrmeth,'.', gsub('0.','',fdrth,fixed=T));
+        # if (nrow(thisres) > 0) {
+        #   golist[[names(idlist)[i]]][[thisname]] = .addGenesToGOFunctionResults(thisres, modulegenes=idlist[[i]]);
+        # } else {
+        #   golist[[names(idlist)[i]]][[thisname]] = thisres;
+        # }
+        golist[[names(idlist)[i]]][[thisname]] = thisres;
+      }
+    }
+  }
+  return(golist);
 }

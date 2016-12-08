@@ -1,10 +1,15 @@
+rm(list=ls()); options(stringsAsFactors=F); 
+setwd('~/Documents/_BS-seq_analysis/');
+library(DESeq2);
+load('annotations_and_scaffold_stats_after03_get_overlaps.RData');
+load('GRanges_objects_after03_get_overlaps.RData');
+load('dmrs_and_overlaps_after03_get_overlaps.RData');
+
 # ----------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------
 # load gene expression data
 # ----------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------
-library(DESeq2);
-
 # load estimated count data from kallisto
 exprdir = '/Volumes/fishstudies-1/_LYNLEY_RNAseq/data/_kallisto_092915/';
 nd1exp = read.table(paste0(exprdir, 'ATCACG/abundance.tsv'), header=T, sep='\t');
@@ -22,6 +27,8 @@ counts0 = as.data.frame(cbind('3157_TENNISON'=nd1exp$est_counts,
                               '3581_LYNLEY'=d2exp$est_counts, 
                               '3677_MONK'=nd2exp$est_counts));
 
+an = annotations_and_scaffold_stats$an;
+
 # sum across transcripts to get gene-level expression values
 rownames(counts0) = rownames(nd1exp);
 counts0 = counts0[match(an$lookup$transcript_id,rownames(counts0)), ];
@@ -29,26 +36,35 @@ counts0l = split(counts0,an$lookup$gene);
 counts = as.data.frame(t(sapply(counts0l, function(f) apply(f, 2, sum))));
 rm(counts0, counts0l); gc();
 
-dmrScaffolds = unique(dmrs$chr);
-dmrScaffoldGenes = names(geneGR)[as.character(seqnames(geneGR)) %in% dmrScaffolds];
-counts_dmrScaffolds = counts[rownames(counts) %in% dmrScaffoldGenes, ];
-
 # make design matrix
 coldata = as.data.frame(matrix(c('ND','D','D','ND'), ncol=1));
-rownames(coldata) = names(counts_dmrScaffolds);
+rownames(coldata) = names(counts);
 names(coldata) = 'group';
 
 # run DESeq2
-dds = DESeqDataSetFromMatrix(countData=round(counts_dmrScaffolds), colData=coldata, design = ~ group);
-dds = DESeq(dds, parallel=TRUE);
+dds = DESeqDataSetFromMatrix(countData=round(counts), colData=coldata, design = ~ group); 
+dds = DESeq(dds, parallel=TRUE); 
 res_raw = results(dds, contrast=c('group','D','ND'));
 res = as.data.frame(res_raw);
 res = as.data.frame(cbind(res[,c(1,2,6)], 
                           an$gffGenesDF[match(rownames(res), an$gffGenesDF$geneSym), ],
-                          brCG=brSeqsNucsCG[match(rownames(res), names(brSeqsNucsCG))]));
+                          brGC=mcols(grs$brGR)$CG[match(rownames(res), names(grs$brGR))]));
+rm(first_time); # don't know what this is but gets created in workspace by DESeq functions
+####################
 
+dmrs = dmrs_and_overlaps$dmrs;
 
+# subset deseq results to expressed genes, DE genes, and genes on dmr-containing scaffolds
+resexpr = subset(res, baseMean>0);
+res.1 = subset(res, padj<.1);
+resexprDmrScaffolds = subset(resexpr, seqnames %in% unique(dmrs$chr));
 
+# save
+expr_raw = list(nd1=nd1exp, nd2=nd2exp, d1=d1exp, d2=d2exp);
+deseq_input = list(counts=counts, data=dds, coldata=coldata);
+deseq_results = list(raw=res_raw, raw_df=res, DE=res.1, expressed=resexpr, expressed_dmrScaffolds=resexprDmrScaffolds);
+
+save(expr_raw, deseq_input, deseq_results, file='deseq_methylationDvsND_res.RData');
 ####################
 
 # get expression for genes with dmrs in introns
