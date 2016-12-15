@@ -36,6 +36,10 @@ counts0l = split(counts0,an$lookup$gene);
 counts = as.data.frame(t(sapply(counts0l, function(f) apply(f, 2, sum))));
 rm(counts0, counts0l); gc();
 
+
+# ----------------------------------------------------------------------------------------------------------
+# compute differential expression and save results
+# ----------------------------------------------------------------------------------------------------------
 # make design matrix
 coldata = as.data.frame(matrix(c('ND','D','D','ND'), ncol=1));
 rownames(coldata) = names(counts);
@@ -59,6 +63,7 @@ resexpr = subset(res, baseMean>0);
 res.1 = subset(res, padj<.1);
 resexprDmrScaffolds = subset(resexpr, seqnames %in% unique(dmrs$chr));
 
+# make res version with genes from all scaffolds that were smoothed
 # save
 expr_raw = list(nd1=nd1exp, nd2=nd2exp, d1=d1exp, d2=d2exp);
 deseq_input = list(counts=counts, data=dds, coldata=coldata);
@@ -66,6 +71,55 @@ deseq_results = list(raw=res_raw, raw_df=res, DE=res.1, expressed=resexpr, expre
 
 save(expr_raw, deseq_input, deseq_results, file='deseq_methylationDvsND_res.RData');
 ####################
+
+# add dmr information
+dmrsOV = dmrs_and_overlaps$dmrsOV;
+dmrsOVsimple = dmrs_and_overlaps$dmrsOVsimple;
+dmrsOVbyGene = dmrs_and_overlaps$dmrsOVbyGene;
+alldmrgenes = unique(unlist(dmrsOVsimple));
+
+res = deseq_results$raw_df;
+
+res = .addDmrInfoToExpression(res, dmrsOVbyGene);
+
+with_te = annotations_and_scaffold_stats$teOVwith_features;
+for (i in 1:length(with_te)) {
+  res = as.data.frame(cbind(res, 
+                            rownames(res) %in% with_te[[i]]));
+  names(res)[ncol(res)] = paste0(names(with_te)[i],'.teOV');
+}; rm(i);
+
+res.1 = subset(res, padj<.1);
+resexpr = subset(res, baseMean>0);
+resexprSmoothed = subset(resexpr, 
+                         seqnames %in% rownames(annotations_and_scaffold_stats$slGeneStats_in70))
+resexprSmoothedDmrs = subset(resexprSmoothed, seqnames %in% unique(dmrs$chr));
+
+save(res, res.1, resexpr, resexprSmoothed, resexprSmoothedDmrs, 
+     file='deseq_methylationDvsND_res_withDmrInfo_noDESeq_input_or_raw_expression.RData');
+
+#####################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # get expression for genes with dmrs in introns
 #thesegenes = names(dmrsOVbyGene$intron)

@@ -699,10 +699,10 @@
   }
   if (verbose) {
     testtype = ifelse(greater, ' at least ', ' no greater than ');
-    cat(paste('Filtering rows with', testtype, 
-              paste(paste(filterCols, '=', filterValues, sep=''), collapse=', '), 
-              ' (abs.vals)...\n', sep='')
-        );
+    cat(paste0('Filtering rows with', testtype, 
+              paste(paste0(filterCols, '=', filterValues), 
+                    collapse=', '), 
+              ' (abs.vals)...\n'));
   }
   filteredDMRs = DMRs;
   for (fCol in 1:length(filterCols)) {
@@ -712,7 +712,9 @@
       keepRows = abs(filteredDMRs[,filterCols[fCol]]) <= filterValues[fCol];
     }
     if (sum(keepRows) == 0) { 
-      warning(paste('filtering on ', names(filteredDMRs)[filterCols[fCol]], '=', filterValues[fCol], ' removes all rows, returning NA', sep=''));
+      warning(paste0('filtering on ', 
+                     names(filteredDMRs)[filterCols[fCol]], '=', filterValues[fCol], 
+                     ' removes all rows, returning NA'));
       return(NA);
     } else {
       filteredDMRs = filteredDMRs[keepRows, ];
@@ -960,11 +962,14 @@
   dmrs = DMRs[, match(c('chr','start','end'), names(DMRs))];
   
   #res = vector(length=nrow(dmrs));
-  res = as.data.frame(matrix(nrow=nrow(DMRs), ncol=2, dimnames=list(rownames(DMRs), c('all','count'))));
+  res = as.data.frame(matrix(nrow=nrow(DMRs), ncol=2, 
+                             dimnames=list(rownames(DMRs), 
+                                           c('all','count'))));
   for (row in 1:nrow(dmrs)) {   #print('===========================')
     range = dmrs[row, ];
     ind = match(range$chr, names(smoothedList));
-    meth = .getMethForDMRRange(chr=range$chr, start=range$start, end=range$end, BSseq=smoothedList[[ind]], ...);
+    meth = .getMethForDMRRange(chr=range$chr, start=range$start, end=range$end, 
+                               BSseq=smoothedList[[ind]], ...);
     
     if (grepl('^d', method)) {
       methAvgs = apply(meth, 2, mean);
@@ -1063,8 +1068,10 @@
 .compareDMRsOverlap = function (dmrs1, dmrs2, ...) {
   if (any(names(dmrs1) != names(dmrs2))) { stop('Names of dmrs1 and dmrs2 must exactly match') }
   if (!all(c('chr','start','end') %in% names(dmrs1))) { stop('Names must include "chr", "start", and "end"') }
-  gr1 = GRanges(seqnames=dmrs1$chr, ranges=IRanges(start=dmrs1$start, end=dmrs1$end));#print(gr1)
-  gr2 = GRanges(seqnames=dmrs2$chr, ranges=IRanges(start=dmrs2$start, end=dmrs2$end));
+  gr1 = GRanges(seqnames=dmrs1$chr, 
+                ranges=IRanges(start=dmrs1$start, end=dmrs1$end));#print(gr1)
+  gr2 = GRanges(seqnames=dmrs2$chr, 
+                ranges=IRanges(start=dmrs2$start, end=dmrs2$end));
   overlaps1 = as.data.frame(suppressWarnings(findOverlaps(gr1, gr2, ...)));#print(overlaps1)
   overlaps2 = as.data.frame(suppressWarnings(findOverlaps(gr2, gr1, ...)));  ### Probably don't need second findOverlaps   
   ck1 = all(overlaps1[,1] == sort(overlaps2[,2]));                      ###  or to do these checks
@@ -1084,6 +1091,13 @@
   }
   return(ovlist);
 }
+
+###
+
+
+###
+
+
 
 # # slow slow slow
 # # should just fix this issue in .compareDMRsOverlap when building ovlist$overlaps
@@ -1807,7 +1821,8 @@
 
 .parseGffMetaCol = function(gff, metaCol=9, delim=';', pattern='Dbxref=GeneID:') {
   metaSplit = strsplit(gff[, metaCol], delim);
-  check = sapply(metaSplit, function(f) any(grepl(pattern, f)))
+  check = sapply(metaSplit, 
+                 function(f) any(grepl(pattern, f)));
   if (!all(check) | sum(check)!=nrow(gff)) {
     stop('all lines in gff do not contain arg pattern') 
   }
@@ -1823,14 +1838,21 @@
   names(feat0) = ids[fRows];
   feat = feat0[!duplicated(feat0)];
   cat('Building GRanges... seqnames...');
-  fseqnames = unlist(lapply(strsplit(feat, ' '), function(f) f[1]));
+  fseqnames = unlist(lapply(strsplit(feat, ' '), 
+                            function(f) f[1]));
   cat('starts...');
-  fstarts = as.numeric(unlist(lapply(strsplit(feat, ' '), function(f) f[2])));
+  fstarts = as.numeric(unlist(lapply(strsplit(feat, ' '), 
+                                     function(f) f[2])));
   cat('ends...');
-  fends = as.numeric(unlist(lapply(strsplit(feat, ' '), function(f) f[3])));
+  fends = as.numeric(unlist(lapply(strsplit(feat, ' '), 
+                                   function(f) f[3])));
   cat('strand...');
-  fstrand = unlist(lapply(strsplit(feat, ' '), function(f) f[4]));
-  featGR = GRanges(seqnames=fseqnames, ranges=IRanges(start=fstarts, end=fends), mcols=names(feat), strand=fstrand);
+  fstrand = unlist(lapply(strsplit(feat, ' '), 
+                          function(f) f[4]));
+  featGR = GRanges(seqnames=fseqnames, 
+                   ranges=IRanges(start=fstarts, end=fends), 
+                   mcols=names(feat), 
+                   strand=fstrand);
   return(featGR);
 }
 
@@ -3502,9 +3524,65 @@
 
 
 
+.screen_enrichKEGG = function (idlist, bgvec, fdrmethvec=c('BY','BH','fdr'), fdrthvec=c(.01, .05, .1), ...) {
+  kegglist = list();
+  for (fdrmeth in fdrmethvec) {
+    cat(paste0('\n------------------------- ', fdrmeth,  ' -------------------------'));
+    for (fdrth in fdrthvec) {
+      cat(paste0('\n  ', fdrth,  '...\n'));
+      for (i in 1:length(idlist)) {
+        cat(paste0('     ', names(idlist)[i], '...'));
+        thisres = as.data.frame(summary(enrichKEGG(gene=idlist[[i]], universe=bgvec, pAdjustMethod=fdrmeth, pvalueCutoff=fdrth, ...)));
+        thisname = paste0(fdrmeth,'.', gsub('0.','',fdrth,fixed=T));
+        kegglist[[names(idlist)[i]]][[thisname]] = thisres;
+      }
+    }
+  }
+  return(kegglist);
+}
 
 
-
+.addDmrInfoToExpression = function (expr, dmrsOVbyGene) {
+  alldmrgenes = unique(unlist(lapply(dmrsOVbyGene, names)));
+  dmrcols = c('dmr.num', 'dmrfc', 'dmrfc.abs', 
+              'n', 'width.dmr', 'invdensity', 
+              'areaStat', 'areaStat.abs', 'meanDiff', 'meanDiff.abs');
+  smat = matrix(ncol=length(dmrcols),nrow=nrow(expr),
+                dimnames=list(rownames(expr),dmrcols));
+  expr = as.data.frame(cbind(expr, smat));
+  for (g in alldmrgenes) {
+    row = match(g, rownames(expr));
+    gdmr = lapply(dmrsOVbyGene, 
+                  function(f) f[[match(g, names(f))]]);
+    gdmr = gdmr[!sapply(gdmr, is.null)];
+    gdmr = subset(do.call('rbind', gdmr), 
+                  !duplicated(paste0(chr,start,end)));
+    #
+    expr$dmr.num[row] = nrow(gdmr);
+    expr$dmrfc[row] = mean(log2(gdmr$group2.mean/gdmr$group1.mean));
+    expr$dmrfc.abs[row] = mean(abs(log2(gdmr$group2.mean/gdmr$group1.mean)));
+    expr$n[row] = mean(gdmr$n);
+    expr$width.dmr[row] = mean(gdmr$width);
+    expr$invdensity[row] = mean(gdmr$invdensity);
+    expr$areaStat[row] = mean(gdmr$areaStat);
+    expr$areaStat.abs[row] = mean(abs(gdmr$areaStat));
+    expr$meanDiff[row] = mean(gdmr$meanDiff);
+    expr$meanDiff.abs[row] = mean(abs(gdmr$meanDiff));
+  }
+  expr$dmr.num[is.na(expr$dmr.num)] = 0;
+  fmat = matrix(nrow=nrow(expr), ncol=length(dmrsOVbyGene),
+                dimnames=list(rownames(expr), names(dmrsOVbyGene)));
+  for (f in 1:length(dmrsOVbyGene)) {
+    fmat[, f] = rownames(expr) %in% names(dmrsOVbyGene[[f]]);
+  }
+  fmat = as.data.frame(cbind(fmat, 
+                             fg=apply(fmat, 1, 
+                                      function(f) paste0(colnames(fmat)[f],
+                                                         collapse=':'))));
+  fmat$fg[fmat$fg==''] = NA;
+  expr = as.data.frame(cbind(expr, fmat));
+  return(expr);
+}
 
 
 .filter_nullints_fromDMRs = function (dmrs, allnullints, overlapLimit=0.5, verbose=100) {
@@ -3751,6 +3829,36 @@
   ov = as.data.frame(cbind(queryHits=ov$queryHits,
                            as.data.frame(mcols(gr2[ov$subjectHits]))));
   return(ov)
+}
+
+.findOverlapsWithSelf = function (gr1, noRanges=F, ...) {
+  ov0 = as.data.frame(suppressWarnings(findOverlaps(gr1, 
+                                                    ignore.strand=T, drop.self=T, drop.redundant=T, 
+                                                    ...)));
+  ov = ov0;
+  ov$queryHits = names(gr1)[ov$queryHits];
+  ov$subjectHits = names(gr1)[ov$subjectHits];
+  if (noRanges) {
+    return(ov)
+  } else {
+    cat(paste0(nrow(ov), ' overlaps...\n'));
+    ovdlist = list();
+    mnum = ncol(mcols(gr1));
+    for (i in 1:nrow(ov)) {
+      if (i %% 100 == 0) { cat(i,'...') }
+      ovdlist[[i]] = disjoin(gr1[unlist(ov0[i,])], ignore.strand=T)[2];
+      inds = match(ov[i,], names(gr1));
+      xr = as.data.frame(ranges(gr1[inds]));
+      xm = as.data.frame(mcols(gr1[inds]));
+      xs = as.vector(strand(gr1[inds]));
+      tmc = cbind(xm[1,], xr[1,1:3], xs[1], xm[2,], xr[2,1:3], xs[2]);
+      names(tmc)[c((mnum+4),ncol(tmc))] = rep('strand',2);
+      names(tmc) = c(paste0(names(tmc)[1:(mnum+4)],'.1'),
+                     paste0(names(tmc)[(mnum+5):(ncol(tmc))],'.2'));
+      mcols(ovdlist[[i]]) <- tmc;
+    }
+    return(list(ov_raw=ov0,ov=ov,ov_ranges=ovdlist));
+  }
 }
 
 # assumes gene name is in first column of mcols for gr1

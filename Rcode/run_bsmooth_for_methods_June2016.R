@@ -1018,7 +1018,7 @@ numOVpca$z.intron[numhits>1 & numOVyntmp$z==1 & numOVyntmp$intron==1] = 1;
 thisnumOV = numOVpca
 dmrpca = prcomp(thisnumOV, scale.=T, center=T); summary(dmrpca); 
 dmrpcacor=cor(thisnumOV, dmrpca$x); 
-dmrpcacorpval=WGCNA::corPvalueFisher(cor(thisnumOV, dmrpca$x),ncol(thisnumOV));
+dmrpcacorpval=WGCNA::corPvalueFisher(dmrpcacor,ncol(thisnumOV));
 plot(dmrpca$x[,1], dmrpca$x[,2], bg=WGCNA::numbers2colors(thisnumOV$intron), pch=21);
 
 intron_genes = unique(unlist(dmrsGR_geneOVhitsGenesAll[names(dmrsGR_geneOVhitsGenesAll) %in% names(fg)[fg=='intron']]))

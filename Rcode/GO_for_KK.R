@@ -256,7 +256,7 @@ kegg1 = .screen_enrichKEGG(entrez_lists, bgGO, fdrmethvec=c('BH','BY'), fdrthvec
   return(tmpAll[order(tmpAll$qvalue), ]);
 }
 
-.screen_enrichKEGG = function (idlist, bgvec, fdrmethvec=c('BY','BH'), fdrthvec=c(.01, .05), ...) {
+.screen_enrichKEGG = function (idlist, bgvec, fdrmethvec=c('BY','BH','fdr'), fdrthvec=c(.01, .05, .1), ...) {
 	kegglist = list();
 	for (fdrmeth in fdrmethvec) {
     cat(paste0('\n------------------------- ', fdrmeth,  ' -------------------------'));

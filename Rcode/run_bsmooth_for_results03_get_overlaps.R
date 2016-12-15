@@ -128,7 +128,43 @@ for (i in 1:ncol(numOV)) {
                                  rownames(numOV)))
 }; rm(i);
 
+# -----------------------------------------
+with_te = list(br=.getOVgenes(brGR,teGR),
+               br3prime=.getOVgenes(br3primeGR,teGR),
+               gene=.getOVgenes(geneGR,teGR),
+               intron=unique(.getOVgenes(intronGR,teGR)),
+               cds=unique(.getOVgenes(cdsGR,teGR)),
+               exon=unique(.getOVgenes(exonGR,teGR)));
 
+# geneGR_dmr_scaffolds = .fixSeqLevels(subset(geneGR, seqnames %in% scaffolds_with_dmrs));
+# with_te_dmr_scaffolds = lapply(with_te, function(x) x[x %in% names(geneGR_dmr_scaffolds)]);
+
+# gene_gene_OV = as.data.frame(findOverlaps(geneGR,drop.self=T,ignore.strand=T,drop.redundant=T));
+# gene_gene_OVlist = apply(gene_gene_OV, 1, function(f) geneGR[unlist(f)]);
+# gene_gene_OVlistGR = Reduce(c, gene_gene_OVlist);
+# names(gene_gene_OVlistGR) = mcols(gene_gene_OVlistGR)[,1];
+# gene_gene_OVlistGR_dmr_scaffolds = .fixSeqLevels(subset(gene_gene_OVlistGR, seqnames %in% scaffolds_with_dmrs));
+# 
+# gene_gene_OVlist_biotypes = lapply(gene_gene_OVlist, function(f) mcols(f)[,3]);
+# rm(gene_gene_OV); gc();
+
+lncrows = mcols(geneGR)[,3]=='lncRNA';
+gene_lnc_OV = gene_lnc_OV=.findOverlapsNames(geneGR[!lncrows], 1, 
+                                             geneGR[lncrows], 1, ignore.strand=T);
+rm(lncrows)
+
+gene_lnc_OVcodingGR = .fixSeqLevels(geneGR[names(geneGR) %in% unique(gene_lnc_OV$queryHits)]);
+# gene_lnc_OVcodingGR_dmr_scaffolds = .fixSeqLevels(subset(gene_lnc_OVcodingGR, 
+#                                                          seqnames %in% scaffolds_with_dmrs));
+
+# gene_lnc_OVdmrsSyms = names(dmrOVbyGene)[names(dmrOVbyGene) %in% gene_lnc_OV$queryHits]
+
+gffdesclookup = data.frame(sym=.parseGffMetaCol(subset(an$gff, V3=='mRNA'), 
+                                                pattern='gene='), 
+                           description=.parseGffMetaCol(subset(an$gff, V3=='mRNA'), 
+                                                        pattern='product='));
+
+# ----------------------------------------
 
 save(list=ls(), file='run_bsmooth_for_results03_get_overlapsWORKSPACE.RData');
 
@@ -140,11 +176,14 @@ annotations_and_scaffold_stats = list(abHsMap=abHsMap,
                                       an=an, 
                                       annoCombo=annoCombo, 
                                       burtoniGois=burtoniGois,
+                                      gene_lnc_OV=gene_lnc_OV,
+                                      gffdesclookup=gffdesclookup,
                                       slGeneStats=slGeneStats, 
-                                      slGeneStats_in70=slGeneStats_in70);
+                                      slGeneStats_in70=slGeneStats_in70,
+                                      teOVwith_features=with_te);
 save(annotations_and_scaffold_stats, 
      file='annotations_and_scaffold_stats_after03_get_overlaps.RData');
-rm(abHsMap, an, annoCombo, burtoniGois, slGeneStats, slGeneStats_in70);
+rm(abHsMap, an, annoCombo, burtoniGois, gene_lnc_OV, gffdesclookup, slGeneStats, slGeneStats_in70, with_te);
 
 grs = list(br3primeGR=br3primeGR,
            brGR=brGR,
@@ -154,7 +193,8 @@ grs = list(br3primeGR=br3primeGR,
            geneGR=geneGR,
            intronGR=intronGR,
            teGR=teGR,
-           zGR=zGR);
+           zGR=zGR,
+           gene_lnc_OVcodingGR=gene_lnc_OVcodingGR);
 save(grs, 
      file='GRanges_objects_after03_get_overlaps.RData');
 rm(list=grep('GR$',ls(),value=T));

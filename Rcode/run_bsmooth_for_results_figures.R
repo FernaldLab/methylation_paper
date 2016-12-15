@@ -149,6 +149,214 @@ rows = dmrs_scaffold_lengths > 0e6;
                                      pch=19, col=labels2colors(dmrs$direction[rows]), 
                                      xlab='num.genes');
 
+# figure 5a, will only use one of 3 plots for main figure, others can go in supplements
+par(mfrow=c(1,3));
+ylim=c(0,4000);
+col=c('grey','lightblue'); 
+border=c('darkgrey','blue');
+names = c('0 dmrs', '>0 dmrs');
+subgenes = names(dmrsOVbyGene$gene);
+thisres = resexpr;
+thisfactor = thisres$dmr.num > 0 & rownames(thisres) %in% subgenes;
+verboseBoxplot(thisres$baseMean, thisfactor, 
+               ylab='DESeq2 baseMean expression', xlab='', 
+               names=names, main='all expressed genes\n',
+               frame.plot=F, ylim=ylim, col=col, border=border);
+thisres = resexprSmoothed;
+thisfactor = thisres$dmr.num > 0 & rownames(thisres) %in% subgenes;
+verboseBoxplot(thisres$baseMean, thisfactor,  ylab='', xlab='',
+               names=names, main='expressed genes on smoothed scaffolds\n',
+               frame.plot=F, ylim=ylim, col=col, border=border);
+thisres = resexprSmoothedDmrs;
+thisfactor = thisres$dmr.num > 0 & rownames(thisres) %in% subgenes;
+verboseBoxplot(thisres$baseMean, thisfactor, ylab='', xlab='',
+               names=names, main='expressed genes on dmr scaffolds\n',
+               frame.plot=F, ylim=ylim, col=col, border=border);
+
+# figure 5b
+par(mfrow=c(1,3));
+ylim=c(0,.3);
+verboseBoxplot(abs(resexpr$log2FoldChange), resexpr$dmr.num > 0, 
+               ylab='abs(DESeq2 log2FoldChange)', xlab='',
+               names=c('0 dmrs', '>0 dmrs'), 
+               frame.plot=F, ylim=ylim,
+               col=col, border=border,
+               main='all expressed genes\n');
+verboseBoxplot(abs(resexprSmoothed$log2FoldChange), resexprSmoothed$dmr.num > 0, 
+               ylab='', xlab='',
+               names=c('0 dmrs', '>0 dmrs'), 
+               frame.plot=F, ylim=ylim,
+               col=col, border=border,
+               main='all expressed genes on smoothed scaffolds\n');
+verboseBoxplot(abs(resexprSmoothedDmrs$log2FoldChange), resexprSmoothedDmrs$dmr.num > 0, 
+               ylab='', xlab='',
+               names=c('0 dmrs', '>0 dmrs'), 
+               frame.plot=F, ylim=ylim,
+               col=col, border=border,
+               main='all expressed genes on dmr scaffolds\n');
+
+# figure 5c
+par(mfrow=c(1,3));
+ylim=c(0,2.2); cex=1.8; col='black';
+verboseScatterplot(resexpr$baseMean, abs(resexpr$log2FoldChange), 
+                   abline=T, abline.col='red', frame.plot=F, ylim=ylim,
+                   ylab='abs(DESeq2 log2FoldChange)', 
+                   xlab='DESeq2 baseMean expression', 
+                   bg=numbers2colors(-as.numeric(resexpr$dmr.num!=0)), cex=cex,
+                   col=col,pch=21, corOptions="method='s'",
+                   main='all expressed genes\n');
+verboseScatterplot(resexprSmoothed$baseMean, abs(resexprSmoothed$log2FoldChange), 
+                   abline=T, abline.col='red', frame.plot=F, ylim=ylim,
+                   ylab='', 
+                   xlab='', 
+                   bg=numbers2colors(-as.numeric(resexprSmoothed$dmr.num!=0)), cex=cex,
+                   col=col,pch=21, corOptions="method='s'",
+                   main='all expressed genes on smoothed scaffolds\n');
+verboseScatterplot(resexprSmoothedDmrs$baseMean, abs(resexprSmoothedDmrs$log2FoldChange), 
+                   abline=T, abline.col='red', frame.plot=F, ylim=ylim,
+                   ylab='', 
+                   xlab='', 
+                   bg=numbers2colors(-as.numeric(resexprSmoothedDmrs$dmr.num!=0)), cex=cex,
+                   col=col,pch=21, corOptions="method='s'",
+                   main='all expressed genes on dmr scaffolds\n');
+
+# figure 5d
+ylim=c(0,.3)
+thisres = subset(resexprSmoothedDmrs, dmr.num > 0);
+thisres = thisres[rownames(thisres) %in% names(dmrsOVbyGene$gene), ]
+verboseScatterplot(thisres$baseMean, abs(thisres$log2FoldChange), 
+                   abline=T, abline.col='red', frame.plot=F, ylim=ylim,
+                   ylab='abs(DESeq2 log2FoldChange)', 
+                   xlab='DESeq2 baseMean expression', 
+                   bg=numbers2colors(-as.numeric(thisres$dmr.num)), cex=cex,
+                   col=col,pch=21, corOptions="method='s'",
+                   main='dmr-OV genes\n');
+
+# figure ???
+# ----------------------
+dmrres = subset(resexprSmoothedDmrs, dmr.num>0)
+
+par(mfrow=c(3,6));
+col = c('grey','lightblue')
+border = c('darkgrey','blue')
+for (i in 25:30) {
+  if (i==25) {
+    ylab='DESeq2 log2FoldChange'
+  } else {
+    ylab=''
+  }
+  verboseBoxplot((dmrres$log2FoldChange), dmrres[,i], 
+                 main=paste0(names(dmrres)[i],'\n'),
+                 ylim=c(-.3,.3), ylab=ylab, xlab='', frame.plot=F,
+                 col=col, border=border); 
+  abline(h=0,col='red')
+}; rm(i)
+for (i in 25:30) {
+  if (i==25) {
+    ylab='abs(DESeq2 log2FoldChange)'
+  } else {
+    ylab=''
+  }
+  verboseBoxplot(abs(dmrres$log2FoldChange), dmrres[,i], 
+                 main=paste0(names(dmrres)[i],'\n'),
+                 ylim=c(0,.3), ylab=ylab, xlab='', frame.plot=F,
+                 col=col, border=border); 
+}; rm(i);
+for (i in 25:30) {
+  if (i==25) {
+    ylab='DESeq2 baseMean expression'
+  } else {
+    ylab=''
+  }
+  verboseBoxplot((dmrres$baseMean), dmrres[,i], 
+                 main=paste0(names(dmrres)[i],'\n'),
+                 ylim=c(0,5000), ylab=ylab, xlab='', frame.plot=F,
+                 col=col, border=border); 
+}; rm(i)
+
+# plot expr vs dmr fold changes for genes based on feature type and expression level
+# ----------------------
+par(mfrow=c(3,6));
+for (i in 25:30) {
+  subgenes = as.logical(dmrres[,i]);
+  bgcol = numbers2colors(dmrres$dmr.num[subgenes]);
+  verboseScatterplot(dmrres$dmrfc[subgenes], dmrres$log2FoldChange[subgenes],
+                     abline=T, abline.col='red', frame.plot=F, 
+                     xlab='dmrfc', ylab='exprfc', main=paste0('all dmr genes: ',names(dmrres)[i],'\n'),
+                     bg=bgcol, pch=21, col='black');
+  abline(h=0, v=0, col='grey');
+}; rm(i);
+thisres = subset(dmrres, baseMean >= median(baseMean));
+for (i in 25:30) {
+  subgenes = as.logical(thisres[,i]);
+  bgcol = numbers2colors(thisres$dmr.num[subgenes]);
+  verboseScatterplot(thisres$dmrfc[subgenes], thisres$log2FoldChange[subgenes],
+                     abline=T, abline.col='red', frame.plot=F, 
+                     xlab='dmrfc', ylab='exprfc', main=paste0('high expr: ', names(thisres)[i],'\n'),
+                     bg=bgcol, pch=21, col='black');
+  abline(h=0, v=0, col='grey');
+}; rm(i);
+thisres = subset(dmrres, baseMean < median(baseMean));
+for (i in 25:30) {
+  subgenes = as.logical(thisres[,i]);
+  bgcol = numbers2colors(thisres$dmr.num[subgenes]);
+  verboseScatterplot(thisres$dmrfc[subgenes], thisres$log2FoldChange[subgenes],
+                     abline=T, abline.col='red', frame.plot=F, 
+                     xlab='dmrfc', ylab='exprfc', main=paste0('low expr: ',names(thisres)[i],'\n'),
+                     bg=bgcol, pch=21, col='black');
+  abline(h=0, v=0, col='grey');
+}; rm(i);
+
+
+
+
+# ----------------------
+
+## supplemental figure?
+par(mfrow=c(1,2))
+col=c('grey','lightblue'); 
+border=c('darkgrey','blue');
+ylim=c(0,1)
+thisres = subset(resexprSmoothedDmrs, dmr.num > 0);
+#thisres = thisres[rownames(thisres) %in% names(dmrsOVbyGene$gene), ]
+verboseBoxplot(abs(thisres$log2FoldChange), thisres$dmrfc > 0, 
+               ylab='abs(DESeq2 log2FoldChange)', xlab='',
+               names=c('hyper', 'hypo'), 
+               frame.plot=F, ylim=ylim,
+               col=col, border=border,
+               main='dmr-OV genes\n');
+ylim=c(0,4000)
+verboseBoxplot(thisres$baseMean, thisres$dmrfc > 0, 
+               ylab='DESeq2 baseMean expression', xlab='',
+               names=c('hyper', 'hypo'), 
+               frame.plot=F, ylim=ylim,
+               col=col, border=border,
+               main='dmr-OV genes\n');
+
+# figure 5e
+par(mfrow=c(1,3));
+ylim=c(-.3,.3);
+verboseBoxplot((resexpr$log2FoldChange), resexpr$dmr.num > 0, 
+               ylab='DESeq2 log2FoldChange', xlab='',
+               names=c('0 dmrs', '>0 dmrs'), 
+               frame.plot=F, ylim=ylim,
+               col=col, border=border,
+               main='all expressed genes\n');abline(h=0,col='red')
+verboseBoxplot((resexprSmoothed$log2FoldChange), resexprSmoothed$dmr.num > 0, 
+               ylab='', xlab='',
+               names=c('0 dmrs', '>0 dmrs'), 
+               frame.plot=F, ylim=ylim,
+               col=col, border=border,
+               main='all expressed genes on smoothed scaffolds\n');abline(h=0,col='red')
+verboseBoxplot((resexprSmoothedDmrs$log2FoldChange), resexprSmoothedDmrs$dmr.num > 0, 
+               ylab='', xlab='',
+               names=c('0 dmrs', '>0 dmrs'), 
+               frame.plot=F, ylim=ylim,
+               col=col, border=border,
+               main='all expressed genes on dmr scaffolds\n');abline(h=0,col='red')
+
+# figure 6a
+
 
 
 # supplemental figure 1
